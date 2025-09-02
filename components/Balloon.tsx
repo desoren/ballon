@@ -1,6 +1,7 @@
-
 import React, { useEffect, memo } from 'react';
 import type { Balloon as BalloonType } from '../types';
+import { BAD_BALLOON_COLOR } from '../constants';
+
 
 interface BalloonProps {
   balloon: BalloonType;
@@ -23,6 +24,25 @@ const Balloon: React.FC<BalloonProps> = ({ balloon, onPop, onMiss }) => {
     onPop(balloon.id);
   }
 
+  const isBadBalloon = balloon.color === BAD_BALLOON_COLOR;
+
+  const balloonBodyClasses = [
+    "w-full h-full rounded-full shadow-lg transform -rotate-12 flex items-center justify-center",
+    balloon.color,
+    isBadBalloon ? 'border-2 border-gray-400/50' : 'border-2 border-white/50',
+    isBadBalloon ? 'bg-gradient-to-br from-gray-200/30 via-transparent to-black/20' : 'bg-gradient-to-br from-white/30 via-transparent to-black/20',
+  ].join(' ');
+
+  const knotColorClass = isBadBalloon
+    ? 'border-t-gray-400'
+    : balloon.color.replace('bg-', 'border-t-');
+
+  const knotClasses = `absolute bottom-[-5px] left-1/2 -translate-x-1/2 w-0 h-0
+    border-l-[${balloon.size * 0.1}px] border-l-transparent
+    border-t-[${balloon.size * 0.15}px] ${knotColorClass}
+    border-r-[${balloon.size * 0.1}px] border-r-transparent`;
+
+
   return (
     <div
       className="absolute bottom-[-150px] cursor-pointer"
@@ -33,18 +53,12 @@ const Balloon: React.FC<BalloonProps> = ({ balloon, onPop, onMiss }) => {
         height: `${balloon.size * 1.2}px`,
       }}
       onClick={handlePop}
+      aria-label={isBadBalloon ? "Bad balloon" : "Good balloon"}
     >
-      <div
-        className={`w-full h-full rounded-full ${balloon.color} shadow-lg border-2 border-white/50 bg-gradient-to-br from-white/30 via-transparent to-black/20 transform -rotate-12 flex items-center justify-center`}
-      >
+      <div className={balloonBodyClasses}>
         <div className="w-1/2 h-1/2 bg-white/20 rounded-full blur-sm"></div>
       </div>
-      <div
-        className={`absolute bottom-[-5px] left-1/2 -translate-x-1/2 w-0 h-0
-        border-l-[${balloon.size * 0.1}px] border-l-transparent
-        border-t-[${balloon.size * 0.15}px] ${balloon.color.replace('bg-', 'border-t-')}
-        border-r-[${balloon.size * 0.1}px] border-r-transparent`}
-      ></div>
+      <div className={knotClasses}></div>
     </div>
   );
 };

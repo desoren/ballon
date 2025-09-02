@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 interface StartScreenProps {
@@ -11,8 +10,11 @@ const StartScreen: React.FC<StartScreenProps> = ({ onStartGame }) => {
             <h1 className="text-6xl sm:text-8xl font-black tracking-tighter mb-4" style={{textShadow: '0 4px 10px rgba(0,0,0,0.3)'}}>
                 Balloon Pop
             </h1>
+            <p className="text-lg sm:text-xl max-w-md mb-2 opacity-90">
+                Pop the <span className="text-red-300 font-bold">red</span> balloons to score points.
+            </p>
             <p className="text-lg sm:text-xl max-w-md mb-8 opacity-90">
-                Pop as many balloons as you can before the time runs out. Are you ready?
+                Avoid the <span className="font-bold">white</span> ones, or you'll lose a life!
             </p>
             <button
                 onClick={onStartGame}

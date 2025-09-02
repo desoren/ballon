@@ -1,0 +1,18 @@
+{
+  "name": "Balloon Pop Game",
+  "short_name": "Balloon Pop",
+  "description": "A fun and interactive PWA game where you pop balloons as they float up the screen.",
+  "start_url": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#38bdf8",
+  "theme_color": "#0ea5e9",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
